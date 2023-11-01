@@ -7,9 +7,10 @@
 const { createCoreController } = require('@strapi/strapi').factories;
 
 module.exports = createCoreController('api::post.post', ({strapi}) => ({
-    async exampleAction(ctx) {
-       strapi.service('api::post.post').exampleService({id:1, name:'ivan', soname:'zyryanov'})
-       return {ctx};
-    },
+    
+   async exampleAction(ctx, next) {
+       const posts = await strapi.entityService.findMany('api::post.post', {populate: "*"});
+       return posts;
+   },
 
-    }));
+}));

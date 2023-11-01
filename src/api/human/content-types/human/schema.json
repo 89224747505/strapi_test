@@ -1,0 +1,55 @@
+{
+  "kind": "collectionType",
+  "collectionName": "humans",
+  "info": {
+    "singularName": "human",
+    "pluralName": "humans",
+    "displayName": "Human"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "Name": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "Soname": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "Age": {
+      "type": "integer",
+      "required": true
+    },
+    "Rost": {
+      "type": "integer",
+      "required": true
+    },
+    "Photo": {
+      "allowedTypes": [
+        "images"
+      ],
+      "type": "media",
+      "multiple": false,
+      "required": true
+    },
+    "Weight": {
+      "type": "integer",
+      "required": true
+    },
+    "Color_eyes": {
+      "type": "enumeration",
+      "enum": [
+        "brown",
+        "green",
+        "blue",
+        "gray"
+      ],
+      "required": true
+    }
+  }
+}

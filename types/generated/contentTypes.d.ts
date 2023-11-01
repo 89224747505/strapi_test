@@ -713,6 +713,42 @@ export interface ApiHomePageHomePage extends Schema.SingleType {
   };
 }
 
+export interface ApiHumanHuman extends Schema.CollectionType {
+  collectionName: 'humans';
+  info: {
+    singularName: 'human';
+    pluralName: 'humans';
+    displayName: 'Human';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    Name: Attribute.String & Attribute.Required & Attribute.Unique;
+    Soname: Attribute.String & Attribute.Required & Attribute.Unique;
+    Age: Attribute.Integer & Attribute.Required;
+    Rost: Attribute.Integer & Attribute.Required;
+    Photo: Attribute.Media & Attribute.Required;
+    Weight: Attribute.Integer & Attribute.Required;
+    Color_eyes: Attribute.Enumeration<['brown', 'green', 'blue', 'gray']> &
+      Attribute.Required;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::human.human',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::human.human',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface ApiPostPost extends Schema.CollectionType {
   collectionName: 'posts';
   info: {
@@ -729,7 +765,11 @@ export interface ApiPostPost extends Schema.CollectionType {
     Context: Attribute.RichText & Attribute.Required;
     Image: Attribute.Media & Attribute.Required;
     slug: Attribute.UID<'api::post.post', 'PostName'> & Attribute.Required;
-    Authors: Attribute.Relation<'api::post.post', 'oneToMany', 'admin::user'>;
+    Authors: Attribute.Relation<
+      'api::post.post',
+      'oneToMany',
+      'plugin::users-permissions.user'
+    >;
     SEO: Attribute.Component<'seo.seo-information', true> & Attribute.Required;
     tags: Attribute.Relation<'api::post.post', 'oneToMany', 'api::tag.tag'>;
     createdAt: Attribute.DateTime;
@@ -780,6 +820,7 @@ declare module '@strapi/types' {
       'plugin::users-permissions.role': PluginUsersPermissionsRole;
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
       'api::home-page.home-page': ApiHomePageHomePage;
+      'api::human.human': ApiHumanHuman;
       'api::post.post': ApiPostPost;
       'api::tag.tag': ApiTagTag;
     }
