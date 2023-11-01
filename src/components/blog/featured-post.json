@@ -1,0 +1,19 @@
+{
+  "collectionName": "components_blog_featured_posts",
+  "info": {
+    "displayName": "FeaturedPost",
+    "icon": "expand"
+  },
+  "options": {},
+  "attributes": {
+    "FeaturedPostHeading": {
+      "type": "string",
+      "required": true
+    },
+    "post": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::post.post"
+    }
+  }
+}
